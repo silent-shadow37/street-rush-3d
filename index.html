@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#070b12">
+<title>Street Rush 3D</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main id="game"></main>
+
+<header class="hud">
+  <div class="stat"><span>SPEED</span><b id="speed">0</b><small>KM/H</small></div>
+  <div class="stat"><span>SCORE</span><b id="score">0</b></div>
+  <div class="stat"><span>BEST</span><b id="best">0</b></div>
+</header>
+
+<section id="menu" class="overlay">
+  <div class="menu-card">
+    <p class="eyebrow">ARCADE RACING</p>
+    <h1>STREET RUSH<br><i>3D</i></h1>
+    <p class="sub">Dodge traffic • Build speed • Chase your best score</p>
+    <button id="startBtn" class="primary">START RACE</button>
+    <p class="hint">Mobile: ◀ ▶ steer • ⚡ nitro<br>Desktop: A/D or ←/→ • W/S</p>
+  </div>
+</section>
+
+<section id="gameover" class="overlay hidden">
+  <div class="menu-card">
+    <p class="eyebrow">RACE OVER</p>
+    <h2>CRASH!</h2>
+    <p>Score <b id="finalScore">0</b></p>
+    <button id="againBtn" class="primary">RACE AGAIN</button>
+  </div>
+</section>
+
+<div id="controls">
+  <div class="steer">
+    <button id="leftBtn" class="control">◀</button>
+    <button id="rightBtn" class="control">▶</button>
+  </div>
+  <button id="nitroBtn" class="nitro">⚡</button>
+</div>
+
+<div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

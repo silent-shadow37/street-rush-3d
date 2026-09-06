@@ -1,0 +1,11 @@
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#070b12;color:#fff;font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;touch-action:none}
+#game{position:fixed;inset:0}.hud{position:fixed;z-index:5;top:12px;left:12px;right:12px;display:flex;gap:8px;justify-content:center;pointer-events:none}
+.stat{min-width:92px;padding:7px 12px;border:1px solid #ffffff25;background:#07101bd9;border-radius:13px;text-align:center;backdrop-filter:blur(8px);box-shadow:0 8px 30px #0005}
+.stat span,.stat small{display:block;font-size:9px;letter-spacing:1.5px;opacity:.65}.stat b{font-size:20px;line-height:23px}
+.overlay{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:linear-gradient(#03060b66,#03060bcc);padding:20px}.hidden{display:none}
+.menu-card{width:min(420px,92vw);padding:34px 26px;text-align:center;border:1px solid #ffffff22;border-radius:25px;background:#07101bea;box-shadow:0 25px 80px #0009;backdrop-filter:blur(12px)}
+.eyebrow{font-size:11px;letter-spacing:4px;opacity:.65;margin:0 0 10px}.menu-card h1{font-size:42px;line-height:.9;margin:0 0 18px;letter-spacing:-2px}.menu-card h1 i{font-style:normal}.menu-card h2{font-size:44px;margin:4px}.sub{opacity:.72;font-size:14px}.hint{font-size:11px;line-height:1.6;opacity:.55;margin-top:18px}
+button{font:inherit;border:0;cursor:pointer}.primary{padding:15px 28px;border-radius:14px;font-weight:900;letter-spacing:.8px;background:#fff;color:#080b10;box-shadow:0 8px 30px #0006}
+#controls{position:fixed;z-index:7;left:0;right:0;bottom:18px;padding:0 22px;display:flex;justify-content:space-between;align-items:end}.steer{display:flex;gap:12px}.control,.nitro{width:66px;height:66px;border-radius:50%;border:1px solid #ffffff38;background:#07101bb8;color:#fff;font-size:25px;backdrop-filter:blur(8px);box-shadow:0 8px 30px #0006}.nitro{width:78px;height:78px;background:#f5ad16;color:#111;font-size:30px}
+#toast{position:fixed;z-index:20;left:50%;bottom:105px;transform:translateX(-50%);padding:8px 14px;border-radius:12px;background:#0009;opacity:0;transition:.2s;pointer-events:none;font-size:12px}
+@media(min-width:800px){#controls{padding:0 40px}.control,.nitro{opacity:.55}.control:hover,.nitro:hover{opacity:1}}
