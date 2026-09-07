@@ -1,200 +1,177 @@
-*{
-  box-sizing:border-box;
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
 }
 
-html,body{
-  margin:0;
-  height:100%;
-  overflow:hidden;
-  background:#071018;
-  color:#fff;
-  font-family:system-ui,Segoe UI,sans-serif;
-  touch-action:none;
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #05050a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-#game{
-  position:fixed;
-  inset:0;
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
-#hud{
-  position:fixed;
-  z-index:5;
-  top:10px;
-  left:10px;
-  right:10px;
-  display:flex;
-  justify-content:flex-end;
-  gap:7px;
-  pointer-events:none;
+/* Top Bar Styling - Easily Reachable */
+.top-bar {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 1200px;
+    background: rgba(10, 15, 30, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 255, 204, 0.3);
+    border-radius: 12px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
-#hud>div{
-  min-width:65px;
-  padding:5px 7px;
-  text-align:center;
-  border:1px solid #fff3;
-  border-radius:10px;
-  background:#071018cc;
-  backdrop-filter:blur(8px);
+.top-btn, .top-select {
+    background: linear-gradient(135deg, #00ffcc, #0077ff);
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 14px;
 }
 
-#hud span,
-#hud small{
-  display:block;
-  font-size:8px;
-  opacity:.55;
-  letter-spacing:1px;
+.top-btn:hover, .top-select:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 12px rgba(0, 255, 204, 0.6);
 }
 
-#hud b{
-  font-size:16px;
+.radio-player {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #00ffcc;
+    font-weight: bold;
 }
 
-#pause{
-  pointer-events:auto;
-  width:42px;
-  height:42px;
-  border:1px solid #fff3;
-  border-radius:10px;
-  background:#071018cc;
-  color:white;
-  font-size:18px;
+.stats-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    color: #fff;
+    font-weight: bold;
 }
 
-.screen{
-  position:fixed;
-  inset:0;
-  z-index:10;
-  display:grid;
-  place-items:center;
-  background:#0008;
-  padding:15px;
+#speed-display {
+    font-size: 20px;
+    color: #ff0055;
+    text-shadow: 0 0 8px rgba(255, 0, 85, 0.6);
 }
 
-.hidden{
-  display:none;
+#score-display {
+    font-size: 18px;
+    color: #00ffcc;
 }
 
-.card{
-  width:min(440px,92vw);
-  text-align:center;
-  padding:30px 24px;
-  border:1px solid #fff2;
-  border-radius:24px;
-  background:#071018ed;
-  box-shadow:0 25px 90px #000b;
-  backdrop-filter:blur(14px);
+/* Cockpit Overlay FX */
+#cockpit-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 5;
+    display: none;
 }
 
-.tag{
-  font-size:9px;
-  letter-spacing:4px;
-  opacity:.55;
+.dashboard-frame {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 30vh;
+    background: linear-gradient(to top, #111, transparent);
+    border-top: 4px solid #222;
 }
 
-.card h1{
-  font-size:38px;
-  line-height:.9;
-  margin:10px 0 15px;
-  letter-spacing:-2px;
+#wiper-blade {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 6px;
+    height: 60vh;
+    background: #333;
+    transform-origin: bottom center;
+    transform: rotate(-60deg);
+    transition: transform 0.6s ease-in-out;
 }
 
-.card h1 em{
-  font-style:normal;
+.wiper-active {
+    animation: wipe 1.2s infinite alternate ease-in-out;
 }
 
-.card h2{
-  font-size:35px;
-  margin:12px;
+@keyframes wipe {
+    0% { transform: rotate(-60deg); }
+    100% { transform: rotate(60deg); }
 }
 
-.card p{
-  opacity:.7;
+/* Modal UI */
+.modal-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
 }
 
-.card button{
-  width:100%;
-  padding:14px;
-  margin-top:10px;
-  border-radius:12px;
-  font-weight:900;
+.modal-content {
+    background: #111;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #ff0055;
+    box-shadow: 0 0 20px rgba(255, 0, 85, 0.4);
 }
 
-.card button:first-of-type{
-  background:#fff;
-  color:#071018;
-  border:0;
+.modal-content h1 {
+    color: #ff0055;
+    font-size: 36px;
+    margin-bottom: 10px;
 }
 
-.card button:not(:first-of-type){
-  background:#fff1;
-  color:#fff;
-  border:1px solid #fff3;
+.modal-content p {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 20px;
 }
 
-.tips{
-  font-size:10px;
-  opacity:.48;
-  line-height:1.6;
-  margin-top:16px;
+.action-btn {
+    background: #00ffcc;
+    color: #000;
+    border: none;
+    padding: 12px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
 }
 
-#touch{
-  position:fixed;
-  z-index:7;
-  left:0;
-  right:0;
-  bottom:14px;
-  display:flex;
-  justify-content:space-between;
-  padding:0 14px;
-}
-
-#touch>div{
-  display:flex;
-  gap:8px;
-}
-
-#touch button{
-  width:67px;
-  height:67px;
-  border-radius:16px;
-  border:1px solid #fff3;
-  background:#071018bb;
-  color:#fff;
-  font-weight:900;
-  font-size:24px;
-  backdrop-filter:blur(7px);
-}
-
-#touch #brake{
-  font-size:10px;
-  width:75px;
-}
-
-#touch #boost{
-  border-radius:50%;
-  font-size:29px;
-}
-
-#toast{
-  position:fixed;
-  z-index:20;
-  left:50%;
-  bottom:105px;
-  transform:translateX(-50%);
-  padding:8px 14px;
-  border-radius:999px;
-  background:#071018ed;
-  border:1px solid #fff3;
-  font-size:12px;
-  opacity:0;
-  transition:.2s;
-}
-
-@media(min-width:800px){
-  #touch{
-    display:none;
-  }
-}
+.hidden { display: none !important; }
