@@ -4,10 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#05080d">
-<title>Street Rush 3D V10 Ultimate</title>
-<link rel="manifest" href="manifest.webmanifest">
+
+<title>Street Rush 3D V12 Control+ Ultimate</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <div id="game"></div>
@@ -19,189 +21,560 @@
 </div>
 
 <div id="hud">
-  <div><span>SPEED</span><b id="speed">0</b><small>KM/H</small></div>
-  <div><span>RPM</span><b id="rpm">1.0</b></div>
-  <div><span>SCORE</span><b id="score">0</b></div>
-  <div><span>POS</span><b id="position">1/10</b></div>
-  <div><span>DRIFT</span><b id="driftHud">0</b></div>
-  <div><span>DAMAGE</span><b id="damageHud">0%</b></div>
-  <div><span>FUEL</span><b id="fuelHud">100%</b></div>
-  <div><span>TEMP</span><b id="tempHud">70°C</b></div>
-  <div><span>ROAD</span><b id="weatherHud">CLEAR</b></div>
-  <div><span>EVENT</span><b id="eventHud">NONE</b></div>
+
+  <div>
+    <span>SPEED</span>
+    <b id="speed">0</b>
+    <small>KM/H</small>
+  </div>
+
+  <div>
+    <span>RPM</span>
+    <b id="rpm">1.0</b>
+  </div>
+
+  <div>
+    <span>SCORE</span>
+    <b id="score">0</b>
+  </div>
+
+  <div>
+    <span>POS</span>
+    <b id="position">1/10</b>
+  </div>
+
+  <div>
+    <span>DRIFT</span>
+    <b id="driftHud">0</b>
+  </div>
+
+  <div>
+    <span>DAMAGE</span>
+    <b id="damageHud">0%</b>
+  </div>
+
+  <div>
+    <span>FUEL</span>
+    <b id="fuelHud">100%</b>
+  </div>
+
+  <div>
+    <span>TEMP</span>
+    <b id="tempHud">70°C</b>
+  </div>
+
+  <div>
+    <span>ROAD</span>
+    <b id="weatherHud">CLEAR</b>
+  </div>
+
+  <div>
+    <span>EVENT</span>
+    <b id="eventHud">NONE</b>
+  </div>
+
+  <div>
+    <span>LAP</span>
+    <b id="lap">1/3</b>
+  </div>
+
   <div class="nitroBox">
     <span>NITRO</span>
     <b id="nitro">100%</b>
     <i id="nitroBar"></i>
   </div>
+
   <button id="pause">Ⅱ</button>
+
 </div>
 
+
+<!-- MAIN MENU -->
+
 <div id="menu" class="screen">
+
   <div class="card hero">
+
     <div class="tag">GLOBAL ONLINE RACING</div>
-    <h1>STREET RUSH <em>V10</em></h1>
-    <p>Ultimate browser racing experience</p>
+
+    <h1>
+      STREET RUSH <em>V10</em>
+    </h1>
+
+    <p>
+      More detail • better handling • global leaderboard
+    </p>
 
     <button id="play">RACE NOW</button>
+
     <button id="garageBtn">GARAGE</button>
+
     <button id="mapBtn">MAP & WEATHER</button>
+
     <button id="missionsBtn">MISSIONS</button>
+
     <button id="modesBtn">GAME MODES</button>
+
     <button id="customBtn">CUSTOMIZE</button>
+
     <button id="statsBtn">PLAYER STATS</button>
+
     <button id="settingsBtn">SETTINGS</button>
+
+    <button id="onlineBtn">ONLINE HUB</button>
+
     <button id="photoBtn">PHOTO MODE</button>
+
+    <button id="cameraBtn">CAMERA: CHASE</button>
+
+    <button id="ghostBtn">GHOST: OFF</button>
+
+    <button id="fullBtn">FULLSCREEN</button>
+
     <button id="qualityBtn">GRAPHICS: ULTRA</button>
+
     <button id="nameBtn">PLAYER NAME</button>
 
     <div class="tips">
-      A/D or ←/→ steer • S/↓ brake • Space nitro • Shift drift • Q/E gear
+      EASY CONTROL: hold LEFT/RIGHT to steer • BRAKE to slow • ⚡ NITRO • DRIFT • GEAR only when needed
     </div>
+
   </div>
+
 </div>
+
+
+<!-- GARAGE -->
 
 <div id="garage" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">GARAGE</div>
+
     <h2 id="carName">PHANTOM</h2>
+
     <div id="carStats"></div>
+
     <div id="carList"></div>
+
     <button id="garageRace">RACE</button>
+
     <button class="back">BACK</button>
+
   </div>
+
 </div>
 
+
+<!-- MAP -->
+
 <div id="map" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">RACE SETUP</div>
 
     <h2>MAP</h2>
+
     <div id="mapList"></div>
 
     <h2>WEATHER</h2>
+
     <div id="weatherList"></div>
 
     <button class="back">BACK</button>
+
   </div>
+
 </div>
+
+
+<!-- GAME MODES -->
 
 <div id="modes" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">RACE MODES</div>
+
     <h2 id="modeTitle">QUICK RACE</h2>
+
     <div id="modeList"></div>
+
     <button class="back">BACK</button>
+
   </div>
+
 </div>
+
+
+<!-- CUSTOMIZE -->
 
 <div id="custom" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">WORKSHOP</div>
+
     <h2>CUSTOMIZE</h2>
+
     <div id="customList"></div>
+
     <button class="back">BACK</button>
+
   </div>
+
 </div>
+
+
+<!-- PLAYER STATS -->
 
 <div id="statsPanel" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">DRIVER PROFILE</div>
+
     <h2>PLAYER STATS</h2>
+
     <div id="statsList"></div>
+
     <button class="back">BACK</button>
+
   </div>
+
 </div>
+
+
+<!-- SETTINGS -->
 
 <div id="settings" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">SETTINGS</div>
+
     <h2>OPTIONS</h2>
+
     <div id="settingsList"></div>
+
     <button class="back">BACK</button>
+
   </div>
+
 </div>
+
+
+<!-- ONLINE HUB -->
+
+<div id="onlineHub" class="screen hidden">
+
+  <div class="card">
+
+    <div class="tag">ONLINE HUB</div>
+
+    <h2>RIVALS & EVENTS</h2>
+
+    <div id="onlineHubList"></div>
+
+    <input
+      id="roomInput"
+      maxlength="8"
+      placeholder="ROOM CODE"
+    >
+
+    <button id="createRoom">CREATE ROOM</button>
+
+    <button id="joinRoom">JOIN ROOM</button>
+
+    <button id="leaveRoom">LEAVE ROOM</button>
+
+    <button id="shareChallenge">CHALLENGE FRIEND</button>
+
+    <button class="back">BACK</button>
+
+  </div>
+
+</div>
+
+
+<!-- MISSIONS -->
 
 <div id="missions" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">MISSIONS</div>
+
     <h2>DAILY RUN</h2>
+
     <div id="missionList"></div>
+
     <button class="back">BACK</button>
+
   </div>
+
 </div>
+
+
+<!-- LEADERBOARD -->
 
 <div id="leaderboard" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">ONLINE • GLOBAL</div>
+
     <h2>TOP 50</h2>
-    <div class="onlineStatus" id="onlineStatus">Connecting…</div>
-    <div id="leaderList" class="leaderList"></div>
-    <button id="leaderRefresh">REFRESH</button>
-    <button class="back">BACK</button>
+
+    <div
+      class="onlineStatus"
+      id="onlineStatus"
+    >
+      Connecting…
+    </div>
+
+    <div
+      id="leaderList"
+      class="leaderList"
+    ></div>
+
+    <button id="leaderRefresh">
+      REFRESH
+    </button>
+
+    <button class="back">
+      BACK
+    </button>
+
   </div>
+
 </div>
+
+
+<!-- PLAYER NAME -->
 
 <div id="nameModal" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">PROFILE</div>
+
     <h2>PLAYER NAME</h2>
-    <input id="nameInput" maxlength="20" placeholder="Enter name">
+
+    <input
+      id="nameInput"
+      maxlength="20"
+      placeholder="Enter name"
+    >
+
     <button id="saveName">SAVE</button>
+
     <button id="cancelName">CANCEL</button>
+
   </div>
+
 </div>
+
+
+<!-- COUNTDOWN -->
 
 <div id="countdown" class="screen hidden">
+
   <div id="countText">3</div>
+
 </div>
+
+
+<!-- PAUSE -->
 
 <div id="pauseScreen" class="screen hidden">
+
   <div class="card">
+
     <div class="tag">RACE PAUSED</div>
+
     <h2>PAUSED</h2>
-    <button id="resume">RESUME</button>
-    <button id="restart">RESTART</button>
-    <button id="pauseHome">MAIN MENU</button>
+
+    <button id="resume">
+      RESUME
+    </button>
+
+    <button id="restart">
+      RESTART
+    </button>
+
+    <button id="repairBtn">
+      REPAIR / PIT • 150 🪙
+    </button>
+
+    <button id="pauseHome">
+      MAIN MENU
+    </button>
+
   </div>
+
 </div>
+
+
+<!-- RESULT -->
 
 <div id="result" class="screen hidden">
-  <div class="card">
-    <div class="tag">RACE RESULT</div>
-    <h2 id="resultTitle">FINISH!</h2>
-    <p id="resultText"></p>
-    <div id="uploadStatus" class="onlineStatus"></div>
 
-    <button id="submitScore">SUBMIT TO LEADERBOARD</button>
-    <button id="replayBtn">WATCH REPLAY</button>
-    <button id="again">RACE AGAIN</button>
-    <button id="home">MAIN MENU</button>
+  <div class="card">
+
+    <div class="tag">RACE RESULT</div>
+
+    <h2 id="resultTitle">
+      FINISH!
+    </h2>
+
+    <p id="resultText"></p>
+
+    <div
+      id="uploadStatus"
+      class="onlineStatus"
+    ></div>
+
+    <button id="submitScore">
+      SUBMIT TO LEADERBOARD
+    </button>
+
+    <button id="replayBtn">
+      WATCH REPLAY
+    </button>
+
+    <button id="again">
+      RACE AGAIN
+    </button>
+
+    <button id="home">
+      MAIN MENU
+    </button>
+
   </div>
+
 </div>
+
+
+<!-- MOBILE CONTROLS -->
 
 <div id="touch">
+
   <div>
-    <button id="left">◀</button>
-    <button id="right">▶</button>
+
+    <button id="left" aria-label="Steer left">
+      ◀ LEFT
+    </button>
+
+    <button id="right" aria-label="Steer right">
+      RIGHT ▶
+    </button>
+
   </div>
 
   <div>
-    <button id="brake">BRAKE</button>
-    <button id="drift">DRIFT</button>
-    <button id="gyro">GYRO</button>
-    <button id="gearDown">−</button>
-    <button id="gearUp">+</button>
-    <button id="boost">⚡</button>
+
+    <button id="brake">
+      BRAKE
+    </button>
+
+    <button id="drift">
+      DRIFT
+    </button>
+
+    <button id="gearDown">
+      − GEAR
+    </button>
+
+    <button id="gearUp">
+      + GEAR
+    </button>
+
+    <button id="gyro">
+      GYRO
+    </button>
+
+    <button id="boost">
+      ⚡
+    </button>
+
   </div>
+
 </div>
 
-<canvas id="minimap" width="180" height="110"></canvas>
+
+<!-- MINIMAP -->
+
+<canvas
+  id="minimap"
+  width="180"
+  height="110">
+</canvas>
+
+
+<!-- EVENT -->
+
+<div id="eventBanner"></div>
+
+
+<!-- TELEMETRY -->
+
+<div id="telemetry">
+
+  <span id="tireHud">
+    TYRE SPORTS
+  </span>
+
+  <span id="surfaceHud">
+    ASPHALT
+  </span>
+
+  <span id="cameraHud">
+    CHASE
+  </span>
+
+</div>
+
+
+<!-- INSTALL HINT -->
+
+<div
+  id="installHint"
+  class="hidden">
+  INSTALL STREET RUSH FROM YOUR BROWSER MENU
+</div>
+
+
+<!-- TOAST -->
 
 <div id="toast"></div>
 
+
+<!-- PWA -->
+
+<link
+  rel="manifest"
+  href="manifest.webmanifest"
+>
+
+<meta
+  name="mobile-web-app-capable"
+  content="yes"
+>
+
+<meta
+  name="apple-mobile-web-app-capable"
+  content="yes"
+>
+
+
+<!-- THREE.JS -->
+
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+
 <script src="game.js"></script>
 
 </body>
-    </html>
+  </html>
