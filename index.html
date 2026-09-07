@@ -2,17 +2,15 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Extreme Cyber Racer - AAA Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Extreme Cyber Racer - Mobile Optimized</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Three.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
-    <!-- Top Interactive Control Bar (Easily Accessible) -->
+    <!-- Top Mobile-Friendly Control Bar -->
     <header class="top-bar">
         <div class="control-group">
-            <button id="cam-toggle-btn" class="top-btn">📷 Camera: Third-Person</button>
+            <button id="cam-toggle-btn" class="top-btn">📷 Cam: 3rd</button>
             <button id="wiper-btn" class="top-btn" style="display: none;">🌧️ Wiper: OFF</button>
         </div>
 
@@ -20,8 +18,8 @@
             <span class="radio-label">📻 Radio:</span>
             <select id="radio-station" class="top-select">
                 <option value="off">Off</option>
-                <option value="synth">Synthwave Beats</option>
-                <option value="cyber">Cyberpunk EDM</option>
+                <option value="synth">Synthwave</option>
+                <option value="cyber">Cyberpunk</option>
             </select>
         </div>
 
@@ -38,6 +36,12 @@
         <div class="dashboard-frame"></div>
     </div>
 
+    <!-- Mobile Touch Controls -->
+    <div id="touch-controls">
+        <button id="btn-left" class="touch-btn">◀</button>
+        <button id="btn-right" class="touch-btn">▶</button>
+    </div>
+
     <!-- 3D Canvas Container -->
     <div id="game-container"></div>
 
@@ -50,6 +54,8 @@
         </div>
     </div>
 
+    <!-- External Libraries Load First -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
