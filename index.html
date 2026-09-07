@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#07111f">
+<title>Street Rush 3D V13 — Fixed</title>
+<link rel="stylesheet" href="style.css?v=13">
+</head>
+<body>
+<div id="app">
+<header class="top"><div class="brand">STREET RUSH <em>V13</em></div><div class="tag">CONTROL+ • FIXED</div></header>
+<main class="menu" id="menu">
+<h1>STREET RUSH <em>V13</em></h1>
+<p class="sub">3D arcade racing • mobile optimized</p>
+<div class="grid">
+<button id="play" class="primary">RACE NOW</button>
+<button id="garage">GARAGE</button><button id="map">MAP</button><button id="missions">MISSIONS</button>
+<button id="modes">GAME MODES</button><button id="custom">CUSTOMIZE</button><button id="stats">PLAYER STATS</button><button id="settings">SETTINGS</button>
+<button id="online">ONLINE HUB</button><button id="photo">PHOTO MODE</button><button id="camera">CAMERA</button><button id="ghost">GHOST</button>
+<button id="full">FULLSCREEN</button><button id="quality">QUALITY</button>
+</div>
+<div class="profile"><label>PLAYER NAME <input id="name" maxlength="20" placeholder="Racer"></label></div>
+<div id="panel"></div>
+</main>
+<div id="game"></div>
+<div id="hud"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+<script src="game.js?v=13"></script>
+</body>
+</html>
