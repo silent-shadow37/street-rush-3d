@@ -1,13 +1,12 @@
-// --- Game Engine Variables ---
+// --- Game Variables ---
 let scene, camera, renderer;
 let playerCar, road;
 let obstacles = [];
-let roadHazards = [];
 let speed = 0.8;
 let score = 0;
 let isGameOver = false;
 
-// Dynamic Lane System (6 Lanes)
+// 6 Lane Mechanics
 const LANES = [-10, -6, -2, 2, 6, 10];
 let currentLaneIndex = 2; // Middle lane
 
@@ -15,57 +14,61 @@ let currentLaneIndex = 2; // Middle lane
 let isCockpitView = false;
 let isWiperOn = false;
 
-// Audio System (Synthesized Music using Web Audio API)
+// Web Audio Radio System
 let audioCtx, oscillator, gainNode;
 
 function init() {
-    // 1. Scene Setup
+    const container = document.getElementById('game-container');
+    container.innerHTML = ''; // Clear existing elements
+
+    // 1. Three.js Scene setup
     scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x05050a, 0.015);
 
     // 2. Camera Setup
     camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     
-    // 3. Renderer Setup
+    // 3. WebGL Renderer Setup
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.shadowMap.enabled = true;
-    document.getElementById('game-container').appendChild(renderer.domElement);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    container.appendChild(renderer.domElement);
 
-    // 4. Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    // 4. Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
     scene.add(ambientLight);
 
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
     dirLight.position.set(0, 20, 10);
     scene.add(dirLight);
 
-    // 5. Build World Elements
+    // 5. Build Environment
     createRoad();
     createPlayerCar();
 
-    // 6. Camera Initial Position
+    // 6. Camera Positioning
     updateCameraPosition();
 
     // 7. Event Listeners
     window.addEventListener('keydown', handleKeyPress);
     window.addEventListener('resize', onWindowResize);
     setupUIControls();
+    setupTouchControls();
 
     // 8. Start Game Loop
     animate();
 }
 
-// --- Road Creation ---
+// --- Road Mesh ---
 function createRoad() {
     const geometry = new THREE.PlaneGeometry(26, 1000);
-    const material = new THREE.MeshStandardMaterial({ color: 0x111115, roughness: 0.2, metalness: 0.5 });
+    const material = new THREE.MeshStandardMaterial({ color: 0x111115, roughness: 0.3, metalness: 0.4 });
     road = new THREE.Mesh(geometry, material);
     road.rotation.x = -Math.PI / 2;
     scene.add(road);
 }
 
-// --- Player Car Creation ---
+// --- Player Mesh ---
 function createPlayerCar() {
     const carGroup = new THREE.Group();
     
@@ -93,7 +96,7 @@ function createPlayerCar() {
     scene.add(playerCar);
 }
 
-// --- Camera Controller ---
+// --- Dynamic Camera Position ---
 function updateCameraPosition() {
     if (isCockpitView) {
         camera.position.set(playerCar.position.x, playerCar.position.y + 0.8, playerCar.position.z - 0.2);
@@ -104,9 +107,9 @@ function updateCameraPosition() {
     }
 }
 
-// --- AI Traffic & Hazard Spawner ---
+// --- Obstacle Spawner ---
 function spawnObstacle() {
-    if (Math.random() < 0.05) {
+    if (Math.random() < 0.04) {
         const lane = LANES[Math.floor(Math.random() * LANES.length)];
         const geo = new THREE.BoxGeometry(2, 1.2, 4);
         const mat = new THREE.MeshStandardMaterial({ color: 0xff0055 });
@@ -118,7 +121,7 @@ function spawnObstacle() {
     }
 }
 
-// --- Dynamic Web Audio Synth (Music Player) ---
+// --- Web Audio Synth Player ---
 function toggleAudio(type) {
     if (!audioCtx) {
         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -133,27 +136,35 @@ function toggleAudio(type) {
     gainNode = audioCtx.createGain();
 
     oscillator.type = type === 'synth' ? 'sawtooth' : 'square';
-    oscillator.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 Note
+    oscillator.frequency.setValueAtTime(type === 'synth' ? 110 : 130, audioCtx.currentTime);
     
-    gainNode.gain.setValueAtTime(0.05, audioCtx.currentTime);
+    gainNode.gain.setValueAtTime(0.04, audioCtx.currentTime);
     oscillator.connect(gainNode);
     gainNode.connect(audioCtx.destination);
 
     oscillator.start();
 }
 
-// --- Input Handling ---
-function handleKeyPress(e) {
-    if (isGameOver) return;
-
-    if ((e.key === 'ArrowLeft' || e.key === 'a') && currentLaneIndex > 0) {
-        currentLaneIndex--;
-    } else if ((e.key === 'ArrowRight' || e.key === 'd') && currentLaneIndex < LANES.length - 1) {
-        currentLaneIndex++;
-    }
+// --- Steering Control Logic ---
+function moveLeft() {
+    if (currentLaneIndex > 0 && !isGameOver) currentLaneIndex--;
 }
 
-// --- UI Logic & Listeners ---
+function moveRight() {
+    if (currentLaneIndex < LANES.length - 1 && !isGameOver) currentLaneIndex++;
+}
+
+function handleKeyPress(e) {
+    if (e.key === 'ArrowLeft' || e.key === 'a') moveLeft();
+    if (e.key === 'ArrowRight' || e.key === 'd') moveRight();
+}
+
+function setupTouchControls() {
+    document.getElementById('btn-left').addEventListener('click', moveLeft);
+    document.getElementById('btn-right').addEventListener('click', moveRight);
+}
+
+// --- UI Interaction Handlers ---
 function setupUIControls() {
     const camBtn = document.getElementById('cam-toggle-btn');
     const wiperBtn = document.getElementById('wiper-btn');
@@ -161,22 +172,20 @@ function setupUIControls() {
     const radioSelect = document.getElementById('radio-station');
     const restartBtn = document.getElementById('restart-btn');
 
-    // Camera Switch Button
     camBtn.addEventListener('click', () => {
         isCockpitView = !isCockpitView;
         if (isCockpitView) {
-            camBtn.innerText = "📷 Camera: Cockpit (1st)";
+            camBtn.innerText = "📷 Cam: 1st";
             wiperBtn.style.display = "inline-block";
             cockpitOverlay.style.display = "block";
         } else {
-            camBtn.innerText = "📷 Camera: Third-Person";
+            camBtn.innerText = "📷 Cam: 3rd";
             wiperBtn.style.display = "none";
             cockpitOverlay.style.display = "none";
         }
         updateCameraPosition();
     });
 
-    // Wiper Button
     wiperBtn.addEventListener('click', () => {
         isWiperOn = !isWiperOn;
         const blade = document.getElementById('wiper-blade');
@@ -189,43 +198,41 @@ function setupUIControls() {
         }
     });
 
-    // Radio
     radioSelect.addEventListener('change', (e) => {
         toggleAudio(e.target.value);
     });
 
-    // Restart
     restartBtn.addEventListener('click', () => {
         location.reload();
     });
 }
 
-// --- Main Animation Loop ---
+// --- Main Render Loop ---
 function animate() {
     if (isGameOver) return;
 
     requestAnimationFrame(animate);
 
-    // Smooth Car Movement between lanes
-    playerCar.position.x += (LANES[currentLaneIndex] - playerCar.position.x) * 0.15;
+    // Smooth movement transition
+    playerCar.position.x += (LANES[currentLaneIndex] - playerCar.position.x) * 0.2;
     updateCameraPosition();
 
-    // Road Infinite Scroll
+    // Road Infinite Motion
     road.position.z += speed;
     if (road.position.z > 50) road.position.z = 0;
 
-    // Spawn & Move Obstacles
+    // Obstacles Management
     spawnObstacle();
     for (let i = obstacles.length - 1; i >= 0; i--) {
         obstacles[i].position.z += speed * 1.5;
 
-        // Collision Detection
+        // Collision Check
         const distance = playerCar.position.distanceTo(obstacles[i].position);
         if (distance < 2.2) {
             triggerGameOver();
         }
 
-        // Cleanup passed obstacles
+        // Passed Obstacles Score Update
         if (obstacles[i].position.z > 20) {
             scene.remove(obstacles[i]);
             obstacles.splice(i, 1);
@@ -234,9 +241,7 @@ function animate() {
         }
     }
 
-    // UI Updates
     document.getElementById('speed-display').innerHTML = `${Math.floor(speed * 160)} <span>KM/H</span>`;
-
     renderer.render(scene, camera);
 }
 
@@ -252,6 +257,6 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-// Initialize Game on Load
-window.onload = init;
-  
+// Start Game automatically when DOM is ready
+window.addEventListener('DOMContentLoaded', init);
+        
